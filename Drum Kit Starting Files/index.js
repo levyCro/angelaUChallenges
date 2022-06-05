@@ -1,11 +1,31 @@
 const buttons = document.querySelectorAll('.drum').length
 
+
+// a loop to detect buttons pressed
 for (let i = 0; i < buttons; i++) {
     document.querySelectorAll('.drum')[i].addEventListener('click', function () {
 
         let buttonText = this.innerHTML
 
-        switch (buttonText) {
+        makeSound(buttonText)
+
+        buttonAnimation(buttonText)
+
+    
+    })
+}
+
+// detect if key is pressed
+document.addEventListener('keydown', function(event) {
+    
+    makeSound(event.key)
+
+    buttonAnimation(event.key)
+})
+
+// function with switch case to play the sounds
+function makeSound(key) {
+        switch (key) {
             case 'w':
                 let tom1 = new Audio('sounds/tom-1.mp3')
                 tom1.play();
@@ -43,5 +63,15 @@ for (let i = 0; i < buttons; i++) {
 
                 default: console.log(buttonText)
         }
-    })
+}
+
+function buttonAnimation(currentKey) {
+    
+    const activeButton = document.querySelector("." + currentKey)
+    activeButton.classList.add("pressed")
+    // removing the pressed animation  
+    setTimeout(() => {
+        activeButton.classList.remove("pressed");
+
+    }, 100)
 }
